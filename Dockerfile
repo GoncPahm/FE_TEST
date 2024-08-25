@@ -15,7 +15,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Cấu hình cổng mà Nginx sẽ lắng nghe
-EXPOSE 80
+EXPOSE 3000
 
 # Sao chép tệp cấu hình Nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
