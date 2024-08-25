@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home/Home";
+import MainLayout from "./layouts/MainLayout";
+import SignInLayout from "./layouts/SignInLayout";
+import SignIn from "./pages/SignIn/SignIn";
+import ProfileLayout from "./layouts/ProfileLayout";
+import Profile from "./pages/Profile/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const router = createBrowserRouter([
+        {
+            element: <MainLayout />,
+            children: [
+                {
+                    path: "/",
+                    element: <Home />,
+                },
+            ],
+        },
+        {
+            element: <SignInLayout />,
+            children: [
+                {
+                    path: "/signin",
+                    element: <SignIn />,
+                },
+            ],
+        },
+        {
+            element: <ProfileLayout />,
+            children: [
+                {
+                    element: <PrivateRoute />,
+                    children: [
+                        {
+                            path: "/profile",
+                            element: <Profile />,
+                        }
+                    ],
+                },
+            ],
+        },
+    ]);
+
+    return (
+        <div>
+            <RouterProvider router={router} />
+        </div>
+    );
 }
 
 export default App;
